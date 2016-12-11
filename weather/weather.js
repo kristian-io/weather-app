@@ -1,5 +1,5 @@
 const request = require('request');
-const weather = require('../config.js')
+const config = require('../config.js')
 
 var getWeather = (latitude, longitude, callback) => {
     request({
