@@ -1,7 +1,7 @@
 const yargs = require('yargs');
 const axios = require('axios');
 
-const config = require('config-example.js')
+const config = require('./config-example.js')
 
 const argv = yargs
   .options({
@@ -27,13 +27,15 @@ axios.get(geocodeUrl).then( (response) => {
   }
   var lat	= response.data.results[0].geometry.location.lat;
   var lng = response.data.results[0].geometry.location.lng;
-  var weatherUrl = `https://api.darksky.net/forecast/${config.weatherKey}/${latitude},${longitude}?units=si`;
+  var weatherUrl = `https://api.darksky.net/forecast/${config.weatherKey}/${lat},${lng}?units=si`;
   console.log(response.data.results[0].formatted_address);
-  return axios.get(weatherUrl);
+  console.log(weatherUrl);
+  return axios.get(weatherUrl)
 }).then((response) => {
   // console.log(typeof(response.data.currently));
-  var temperature = response.body.currently.temperature;
-  var apparentTemperature = response.body.currently.apparentTemperature;
+  ;debugger
+  var temperature = response.data.currently.temperature;
+  var apparentTemperature = response.data.currently.apparentTemperature;
   console.log(`It's currently ${temperature}. It feels like ${apparentTemperature}`);
 }).catch((error) => {
   if (error.code ==="ENOTFOUND") {
