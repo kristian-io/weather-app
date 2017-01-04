@@ -2,7 +2,7 @@
 
 Continuing on master branch.
 
-This is a weather app created as part of the [(]UDEMY course on Node.js] (https://www.udemy.com/the-complete-nodejs-developer-course-2/learn/v4/overview)
+This is a weather app created as part of the [UDEMY course on Node.js] (https://www.udemy.com/the-complete-nodejs-developer-course-2/learn/v4/overview)
 
 Using google maps geocode API and Darksky.net API.
 
