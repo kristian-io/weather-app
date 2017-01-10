@@ -1,0 +1,19 @@
+
+<span id="weather"></span>
+<script>
+const {getWeatherFromAddress} = require('./../../weather/weather.js')
+
+alert('here!')
+var address = "paris";
+getWeatherFromAddress(address, (err, data) => {
+  if (err) {
+    console.log(`Ups: ${err}`);
+    return;
+  }
+  console.log(data);
+  getElementById('weather').innerHTML('haha')
+})
+
+
+
+</script>
