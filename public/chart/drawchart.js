@@ -63,7 +63,7 @@ function drawOurChart(data) {
             ${Math.round(day.temperatureMin)}   ${Math.round(day.temperatureMax)}`;
             break;
           case 2:
-            dayIs = ` Thu
+            dayIs = ` Tue
             ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
             break;
           case 3:

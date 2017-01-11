@@ -46,14 +46,17 @@ var getWeatherFromAddress = (address, callback) => {
       callback(error);
     } else {
       // lets get the weather from darksky
-      getWeather(results.latitude, results.longitude , (error, temperature) => {
+      console.log(results);
+      getWeather(results.latitude, results.longitude , (error, data) => {
         if (error) {
           console.log(error);
           callback(error);
         } else {
           // console.log(JSON.stringify(temperature, undefined, 2));
           // console.log(`Its currently ${temperature.temperature}°C. It feels like ${temperature.apparentTemperature}°C`);
-          callback(undefined, temperature);
+          //adding resolved adddress do data
+          data[0].address = results.address
+          callback(undefined, data);
           // callback(temperature.temperature);
         }
       });

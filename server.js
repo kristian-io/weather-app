@@ -27,12 +27,13 @@ app.get('/', (req, res) => {
 // POST /data route
 app.post('/data', (req, res) => {
   // console.log('req.body ', req.body );
-  getWeatherFromAddress(req.body.address, (err, data) => {
+  getWeatherFromAddress(req.body.address, (err, data, address) => {
     if (err) {
       console.log(err);
       res.header(404).send();
     }
-    // console.log('data: ', data);
+    console.log('data: ', data);
+    // console.log(address);
     res.send(data);
   });
 });

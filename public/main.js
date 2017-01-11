@@ -1,6 +1,6 @@
 // after document is ready
 $(document).ready( () => {
-    console.log('its ready!');
+    // console.log('its ready!');
     // $('body').css("background", "red") //  /*background: url(bg2.jpg) no-repeat center center fixed;*/
 
     // show home button and search bar
@@ -29,9 +29,9 @@ $(document).ready( () => {
                address: Address
            })
        }).done((data) => {
-         console.log(data[0].summary);
+        //  console.log(data[0].summary);
          $("h4").remove();
-         $("#jumbo").append(`<h4><span class="tag tag-default">${Address}</span> ${data[0].summary}</h4>`);
+         $("#jumbo").append(`<h4><span class="tag tag-default">${data[0].address}</span> ${data[0].summary}</h4>`);
          drawOurChart(data[1]);
          $(".jumbotron").fadeIn("slow");
        });
