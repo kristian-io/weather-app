@@ -16,6 +16,8 @@ $(document).ready( () => {
     $( "#searchform" ).submit(function( event ) {
       // Stop form from submitting normally
       event.preventDefault();
+      $(".jumbotron").fadeOut("slow");
+
       // Get some values from elements on the page:
       var Address = $('#searchbox').val();
 
@@ -27,9 +29,11 @@ $(document).ready( () => {
                address: Address
            })
        }).done((data) => {
-        //  console.log(data);
-         drawOurChart(data);
-         $(".jumbotron").slideDown("slow");
+         console.log(data[0].summary);
+         $("h4").remove();
+         $("#jumbo").append(`<h4><span class="tag tag-default">${Address}</span> ${data[0].summary}</h4>`);
+         drawOurChart(data[1]);
+         $(".jumbotron").fadeIn("slow");
        });
     });
 });

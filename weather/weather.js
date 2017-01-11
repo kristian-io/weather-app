@@ -9,8 +9,10 @@ var getWeather = (latitude, longitude, callback) => {
   }, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       var body = JSON.parse(body);
-      // console.log(body.daily.data.length);                               //parse body
-      var data = [];
+      // console.log(body.daily.data.length);
+      var allData = [];                               //parse body
+      var weeklyData = [];
+      allData.push({"summary": body.daily.summary});           //1st item contains summary for the whole week
       for (var i=0; i < body.daily.data.length; i++) {      //create array with data we want; summary, min and max temperatues 0 -today; then  1 - 7 days
         // var date = new Date(body.daily.data[i].time);
         // console.log(body.daily.data[i].time);
@@ -19,13 +21,16 @@ var getWeather = (latitude, longitude, callback) => {
           "time" : body.daily.data[i].time,                                  //???????
           "summary":  body.daily.data[i].summary,
           "temperatureMin": body.daily.data[i].temperatureMin,
-          "temperatureMax": body.daily.data[i].temperatureMax
+          "temperatureMinTime": body.daily.data[i].temperatureMinTime,
+          "temperatureMax": body.daily.data[i].temperatureMax,
+          "temperatureMaxTime": body.daily.data[i].temperatureMaxTime
         }
-        data.push(obj);
+        weeklyData.push(obj);                                   // second intem in the array has the data for week
         // var date = '';
       }
+      allData.push(weeklyData);
       // console.log(data);
-      callback(undefined,  data);
+      callback(undefined,  allData);
     } else {
       callback('Unable to fetch weather data');
     }

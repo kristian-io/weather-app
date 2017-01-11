@@ -1,6 +1,6 @@
 function drawOurChart(data) {
 
-      var myData = data; // second intem in the array has the data for week, 1st contains summary for the whole week
+      var myData = data;
     // var myData = [
     //         {
     //       "time": 1483916400,
@@ -46,8 +46,7 @@ function drawOurChart(data) {
 
 
 
-      var  myDataPrepared = [];
-
+      var  myDataPrepared = []
       var minTemp = 0, maxTemp = 0;
 
       myData.forEach((day) => {
@@ -55,36 +54,29 @@ function drawOurChart(data) {
         dayIs = '';
         switch (date.getDay()) {
           case 0:
-            dayIs = ` Sun
-            ${Math.round(day.temperatureMin)}   ${Math.round(day.temperatureMax)}`;
+            dayIs = 'Sunday';
             break;
           case 1:
-            dayIs = ` Mon
-            ${Math.round(day.temperatureMin)}   ${Math.round(day.temperatureMax)}`;
+            dayIs = 'Monday'
             break;
           case 2:
-            dayIs = ` Thu
-            ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
+            dayIs = 'Thuesday'
             break;
           case 3:
-            dayIs = ` Wed
-            ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
+            dayIs = 'Wednesday'
             break;
           case 4:
-            dayIs = ` Thu
-            ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
+            dayIs = 'Thursday'
             break;
           case 5:
-            dayIs = ` Fri
-            ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
+            dayIs = 'Friday'
             break;
           case 6:
-            dayIs = ` Sat
-            ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`
+            dayIs = 'Saturday'
             break;
         }
-        //adding the data to data table and rounding it.
-        myDataPrepared.push([dayIs, Math.round(day.temperatureMax), Math.round(day.temperatureMin)]);
+
+        myDataPrepared.push([dayIs, day.temperatureMin, day.temperatureMin, day.temperatureMax, day.temperatureMax])
         //lets also find min and max values for all days which we will use to define ticks for vAxis:
         if (minTemp > day.temperatureMin) {
           minTemp = day.temperatureMin;
@@ -93,8 +85,6 @@ function drawOurChart(data) {
           maxTemp = day.temperatureMax
         }
       });
-
-
 
       //creating array for ticks as [minTemp, minTemp +1, ..., maxTemp]
       minTemp = Math.round(minTemp);
@@ -110,45 +100,27 @@ function drawOurChart(data) {
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
-
-        graphWidth = $(window).width() *0.83;
-        graphHeight = $(window).height() * 0.6;
-        console.log(graphWidth, graphHeight);
-
         var data = google.visualization.arrayToDataTable(myDataPrepared, true);
 
         var options = {
-          // title: 'Weather for this week',
+          title: "Weather for this week",
           legend: 'none',
-          axisTitlesPosition: 'in',
-          fontName: 'Segoe UI',
-          fontSize: 16,
-          curveType: 'function',
-          focusTarget: 'category',
-          width: graphWidth,
-          height: graphHeight,
-          // chartArea: {left: 0, top: 0},
+          width: '100%',
+          height: '100%',
           backgroundColor: {fill: 'transparent'},
           vAxis: {
-            // textPosition: 'none',
             format: '#,###°C',
             ticks: ourTicks
           },
-          lineWidth: 2,
-          series: {
-            0: { color: '#4972a0' },
-            1: { color: '#4972a0' },
-          }
-
           // isStacked: true,
-          // bar: { groupWidth: '50%' }, // Remove space between bars.
+          bar: { groupWidth: '50%' }, // Remove space between bars.
           // candlestick: {
           //   fallingColor: { strokeWidth: 0, fill: '#a52714' }, // red
           //   risingColor: { strokeWidth: 0, fill: '#0f9d58' }   // green
           // }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
 }
