@@ -49,18 +49,18 @@ function drawOurChart(data) {
       var  myDataPrepared = [];
 
       var minTemp = 0, maxTemp = 0;
-
+      var run = 0
       myData.forEach((day) => {
         date = new Date(day.time*1000);
         dayIs = '';
         switch (date.getDay()) {
           case 0:
             dayIs = ` Sun
-            ${Math.round(day.temperatureMin)}   ${Math.round(day.temperatureMax)}`;
+            ${Math.round(day.temperatureMin)}°C${Math.round(day.temperatureMax)}°C`;
             break;
           case 1:
             dayIs = ` Mon
-            ${Math.round(day.temperatureMin)}   ${Math.round(day.temperatureMax)}`;
+            ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
             break;
           case 2:
             dayIs = ` Tue
@@ -84,6 +84,11 @@ function drawOurChart(data) {
             break;
         }
         //adding the data to data table and rounding it.
+        //if its 1st run we dont need to tell day; rather tell Today
+        if (run === 0) {
+          dayIs = ` Today
+          ${Math.round(day.temperatureMin)}°C/${Math.round(day.temperatureMax)}°C`;
+        };
         myDataPrepared.push([dayIs, Math.round(day.temperatureMax), Math.round(day.temperatureMin)]);
         //lets also find min and max values for all days which we will use to define ticks for vAxis:
         if (minTemp > day.temperatureMin) {
@@ -92,6 +97,7 @@ function drawOurChart(data) {
         if (maxTemp < day.temperatureMax) {
           maxTemp = day.temperatureMax
         }
+        run++;
       });
 
 
@@ -111,11 +117,23 @@ function drawOurChart(data) {
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
 
-        graphWidth = $(window).width() *0.83;
-        graphHeight = $(window).height() * 0.6;
-        console.log(graphWidth, graphHeight);
+
 
         var data = google.visualization.arrayToDataTable(myDataPrepared, true);
+
+        if ($(window).width() < 400) {
+          // for small screens; this is not perfect
+          graphWidth = $(window).width() *0.95;
+          graphHeight = $(window).height() * 0.80;
+          console.log(graphWidth, graphHeight);
+          var chArea =  {'width': '80%', 'height': '70%'};
+        } else {
+          //bigger screens; not bad.
+          graphWidth = $(window).width() *0.65;
+          graphHeight = $(window).height() * 0.5;
+          console.log(graphWidth, graphHeight);
+          var chArea =  {'width': '80%', 'height': '70%'};
+        }
 
         var options = {
           // title: 'Weather for this week',
@@ -127,7 +145,7 @@ function drawOurChart(data) {
           focusTarget: 'category',
           width: graphWidth,
           height: graphHeight,
-          // chartArea: {left: 0, top: 0},
+          chartArea: chArea,
           backgroundColor: {fill: 'transparent'},
           vAxis: {
             // textPosition: 'none',
