@@ -4,7 +4,8 @@ $(document).ready( () => {
     // $('body').css("background", "red") //  /*background: url(bg2.jpg) no-repeat center center fixed;*/
 
     // show home button and search bar
-    $( "#homeButton").slideDown("slow");
+    // $( "#homeButton").slideDown("slow");
+    // $( "#searchform").css("position-top");
     $( "#searchform").slideDown("slow");
 
     // home button click event handler to reload page.
@@ -30,8 +31,8 @@ $(document).ready( () => {
            })
        }).done((data) => {
         //  console.log(data[0].summary);
-         $("h4").remove();
-         $("#jumbo").append(`<h4><span class="tag tag-default">${data[0].address}</span> ${data[0].summary}</h4>`);
+         $("#sum").remove();
+         $("#jumbo").append(`<span class="text-xs-center" id="sum"><h4><span class="tag tag-default">${data[0].address}</span></h4><h6><div> ${data[0].summary}</div></h6></span>`);
          drawOurChart(data[1]);
          $(".jumbotron").fadeIn("slow");
        });
