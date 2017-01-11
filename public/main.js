@@ -5,7 +5,6 @@ $(document).ready( () => {
 
     // show home button and search bar
     // $( "#homeButton").slideDown("slow");
-    // $( "#searchform").css("position-top");
     $( "#searchform").slideDown("slow");
 
     // home button click event handler to reload page.
