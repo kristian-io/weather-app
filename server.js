@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const hbs = require('hbs');
+// const hbs = require('hbs');
 const bodyParser = require('body-parser');
 
 const {getWeatherFromAddress} = require('./weather/weather.js');
